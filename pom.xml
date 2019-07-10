@@ -22,6 +22,12 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <version>0.10.5</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
       <groupId>com.nimbusds</groupId>
       <artifactId>nimbus-jose-jwt</artifactId>
       <version>5.7</version>
@@ -106,8 +112,8 @@
       <properties>
         <httpsPort>8543</httpsPort>
         <httpPort>8181</httpPort>
-        <javaKeystoreLocation>/Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/Contents/Home/lib/security/cacerts</javaKeystoreLocation>
-        <yourOktaDomain>dev-533919.oktapreview.com</yourOktaDomain>
+        <javaKeystoreLocation>${env.JAVA_HOME}/lib/security/cacerts</javaKeystoreLocation>
+        <oktaDomain>dev-133320.okta.com</oktaDomain>
       </properties>
     </profile>
   </profiles>

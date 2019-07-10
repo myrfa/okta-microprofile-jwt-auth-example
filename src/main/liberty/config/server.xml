@@ -4,18 +4,18 @@
         <feature>microProfile-2.2</feature>
     </featureManager>
     <httpEndpoint id="defaultHttpEndpoint" httpPort="${httpPort}" httpsPort="${httpsPort}"/>
-    <application location="${project.build.directory}/${project.build.finalName}.war"/>
+    <application location="${project.build.finalName}.war"/>
     <logging traceSpecification="${log.name}.*=${log.level}"/>
 
     <!-- Import default Java trust store for root certs -->
     <ssl id="defaultSSLConfig" keyStoreRef="defaultKeyStore" trustStoreRef="defaultTrustStore" />
     <keyStore id="defaultTrustStore" location="${javaKeystoreLocation}" type="JKS" password="changeit" />
 
-    <!-- Configure Microprofile JWT Auth -->
+    <!-- Configure MicroProfile JWT Auth -->
     <mpJwt
             id="myMpJwt"
-            jwksUri="https://${yourOktaDomain}/oauth2/default/v1/keys"
-            issuer="https://${yourOktaDomain}/oauth2/default"
+            jwksUri="https://${oktaDomain}/oauth2/default/v1/keys"
+            issuer="https://${oktaDomain}/oauth2/default"
             audiences="api://default"
     />
 </server>

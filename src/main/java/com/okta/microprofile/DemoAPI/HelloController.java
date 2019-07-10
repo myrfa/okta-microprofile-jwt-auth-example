@@ -1,7 +1,8 @@
 package com.okta.microprofile.DemoAPI;
 
 import javax.inject.Singleton;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 
 /**
  *
