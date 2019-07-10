@@ -9,9 +9,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import java.util.Set;
 
-/**
- *
- */
 @Path("/protected")
 @RequestScoped
 public class ProtectedController {
@@ -29,6 +26,5 @@ public class ProtectedController {
     public String getJWTBasedValue() {
         return this.subject + ": " + this.groups.toString();
     }
-    
+
 }
-                            

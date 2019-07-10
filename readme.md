@@ -1,51 +1,71 @@
-# MicroProfile generated Application
+# MicroProfile REST API with JWT Auth
 
-## Introduction
+This repository shows how to create a REST API with MicroProfile and use JWT for authentication. Please read [Build a REST API Using Java, MicroProfile, and JWT Authentication](https://developer.okta.com/blog/2019/07/10/java-microprofile-jwt-auth) to see how this example was created.
 
-MicroProfile Starter has generated this MicroProfile application for you.
+**Prerequisites:** [Java 8](https://adoptopenjdk.net/).
 
-The generation of the executable jar file can be performed by issuing the following command
+> [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage, and secure users and roles in any application.
 
-    mvn clean package
+* [Getting Started](#getting-started)
+* [Links](#links)
+* [Help](#help)
+* [License](#license)
 
-This will create an executable jar file **DemoAPI.jar** within the _target_ maven folder. This can be started by executing the following command
+## Getting Started
 
-    java -jar target/DemoAPI.jar
+To install this example, run the following commands:
 
-To launch the test page, open your browser at the following URL
+```bash
+git clone https://github.com/oktadeveloper/okta-microprofile-jwt-auth-example.git
+cd okta-microprofile-jwt-auth-example
+```
 
-    http://localhost:8181/DemoAPI/index.html
+### Create an Application in Okta
 
-## Specification examples
+Log in to your Okta Developer account (or [sign up](https://developer.okta.com/signup/) if you don’t have an account).
 
-By default, there is always the creation of a JAX-RS application class to define the path on which the JAX-RS endpoints are available.
+1. From the **Applications** page, choose **Add Application**.
+2. On the Create New Application page, select **Web**.
+3. Give your app a memorable name, add `https://oidcdebugger.com/debug` as a Login redirect URI, check the box next to **Implicit (Hybrid)**, then click **Done**.
 
-Also, a simple Hello world endpoint is created, have a look at the class **HelloController**.
+Modify `pom.xml` to use your Okta domain:
 
-More information on MicroProfile can be found [here](https://microprofile.io/)
+```xml
+<properties>
+  ...
+  <oktaDomain>{yourOktaDomain}</oktaDomain>
+</properties>
+```
 
-
-
-
-
-
-
-
-
-
-### JWT Auth
-
-Using the OpenId Connect JWT token to pass authentication and authorization information to the JAX-RS endpoint. Specification [here](https://microprofile.io/project/eclipse/microprofile-rest-client)
-
-Have a look at the **JWTClient** class within the test directory which calls the protected endpoint on the server from a Java Main method.
-The **ProtectedController** contains the protected endpoint since it contains the _@RolesAllowed_ annotation on the JAX-RS endpoint method.
-
-In order to call the protected endpoint, a separate program (see _JWTClient_) is used to simulate as much as possible a real world situation. A JAX-RS client implementation is used for this purpose to match the selected MicroProfile implementation, with an arbitrary version.
-However, any method to send a REST request with an appropriate header will work of course. Please feel free to change this code to your needs.
+**NOTE:** The value of `{yourOktaDomain}` should be something like `dev-123456.okta.com`. Make sure you don't include `-admin` in the value!
 
 
+Build your app and start the server:
 
+```
+mvn install liberty:start-server
+```
 
+To generate a JWT access token, go to https://oidcdebugger.com/ and fill out the values for your OIDC application.
 
+In a shell, store the token in a variable. Then use it to hit the API and authentication with JWT:
 
+```
+http :8181/DemoAPI/data/protected "Authorization: Bearer $TOKEN"
+```
 
+## Links
+
+This example uses the following open source libraries:
+
+* [Eclipse MicroProfile](https://microprofile.io/) 
+* [Java JWT](https://github.com/jwtk/jjwt)
+* [Open Liberty](https://openliberty.io/)
+
+## Help
+
+Please post any questions as comments on the [blog post](https://developer.okta.com/blog/2019/07/10/java-microprofile-jwt-auth), or on the [Okta Developer Forums](https://devforum.okta.com/).
+
+## License
+
+Apache 2.0, see [LICENSE](LICENSE).
